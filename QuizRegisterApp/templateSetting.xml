@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Setting>
+	<Input>
+		<Column name="難易度">
+			<InputType>radio</InputType>
+			<Group>
+				<Value>1,2,3,4,5</Value>
+				<Value>Easy,Normal,Hard</Value>
+			</Group>
+		</Column>
+		<Column name="問題形式">
+			<InputType>select</InputType>
+		</Column>
+		<Column name="問題文">
+			<InputType>textarea</InputType>
+		</Column>
+		<Column name="選択肢">
+			<InputType>textarea</InputType>
+		</Column>
+		<Column name="エフェクト画像">
+			<InputType>textbox</InputType>
+		</Column>
+		<Column name="文字パネル">
+			<InputType>charbox10</InputType>
+		</Column>
+		<Column name="ヒント">
+			<InputType>textarea</InputType>
+		</Column>
+		<Column name="正答率">
+			<InputType>textbox</InputType>
+		</Column>
+		<Column name="答え">
+			<InputType>textbox</InputType>
+		</Column>
+		<Column name="備考">
+			<InputType>textarea</InputType>
+		</Column>
+	</Input>
+	<Template>
+		<Type name="アニ順">
+			<難易度>True</難易度>
+			<問題文>True</問題文>
+			<選択肢>True</選択肢>
+			<答え>True</答え>
+			<備考>True</備考>
+		</Type>
+		<Type name="スポ並">
+			<難易度>True</難易度>
+			<問題文>True</問題文>
+			<選択肢>True</選択肢>
+			<答え>True</答え>
+			<備考>True</備考>
+		</Type>
+		<Type name="ライエフェ">
+			<難易度>True</難易度>
+			<問題文>True</問題文>
+			<エフェクト画像>True</エフェクト画像>
+			<正答率>True</正答率>
+			<答え>True</答え>
+			<備考>True</備考>
+		</Type>
+		<Type name="社文字">
+			<難易度>True</難易度>
+			<問題文>True</問題文>
+			<文字パネル>True</文字パネル>
+			<正答率>True</正答率>
+			<答え>True</答え>
+			<備考>True</備考>
+		</Type>
+		<Type name="社連">
+			<難易度>True</難易度>
+			<ヒント>True</ヒント>
+			<答え>True</答え>
+			<備考>True</備考>
+		</Type>
+		<Type name="文系○×">
+			<難易度>True</難易度>
+			<問題文>True</問題文>
+			<正答率>True</正答率>
+			<答え>True</答え>
+			<備考>True</備考>
+		</Type>
+		<Type name="理系">
+			<難易度>True</難易度>
+			<問題形式>タイピング,キューブ,エフェクト</問題形式>
+			<問題文>True</問題文>
+			<正答率>True</正答率>
+			<答え>True</答え>
+			<備考>True</備考>
+		</Type>
+	</Template>
+</Setting>
