@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Setting>
+    <Define>
+        <Column key="Difficulty">
+            <Title>難易度</Title>
+            <InputType>radio</InputType>
+            <Options>1;2;3;4;5,Easy;Normal;Hard</Options>
+        </Column>
+        <Column key="ProblemSentence">
+            <Title>問題文</Title>
+            <InputType>textarea</InputType>
+        </Column>
+        <Column key="Options">
+            <Title>選択肢</Title>
+            <InputType>textarea</InputType>
+        </Column>
+        <Column key="EffectImage">
+            <Title>エフェクト画像</Title>
+            <InputType>textbox</InputType>
+        </Column>
+        <Column key="CharPanel">
+            <Title>文字パネル</Title>
+            <InputType>charbox10</InputType>
+        </Column>
+        <Column key="Hint">
+            <Title>ヒント</Title>
+            <InputType>textarea</InputType>
+        </Column>
+        <Column key="Rate">
+            <Title>正答率</Title>
+            <InputType>textbox</InputType>
+        </Column>
+        <Column key="CorrectAnswer">
+            <Title>答え</Title>
+            <InputType>textbox</InputType>
+        </Column>
+        <Column key="Remarks">
+            <Title>備考</Title>
+            <InputType>textarea</InputType>
+        </Column>
+    </Define>
+    <Template>
+        <Genre name="アニメ＆ゲーム">
+            <Format name="順番当て">
+                <Difficulty>True</Difficulty>
+                <ProblemSentence>True</ProblemSentence>
+                <Options>True</Options>
+                <CorrectAnswer>True</CorrectAnswer>
+                <Remarks>True</Remarks>
+            </Format>
+        </Genre>
+        <Genre name="スポーツ">
+            <Format name="並べ替え">
+                <Difficulty>True</Difficulty>
+                <ProblemSentence>True</ProblemSentence>
+                <Options>True</Options>
+                <CorrectAnswer>True</CorrectAnswer>
+                <Remarks>True</Remarks>
+            </Format>
+        </Genre>
+        <Genre name="ライフスタイル">
+            <Format name="エフェクト">
+                <Difficulty>True</Difficulty>
+                <ProblemSentence>True</ProblemSentence>
+                <EffectImage>True</EffectImage>
+                <Rate>True</Rate>
+                <CorrectAnswer>True</CorrectAnswer>
+                <Remarks>True</Remarks>
+            </Format>
+        </Genre>
+        <Genre name="社会">
+            <Format name="文字パネル">
+                <Difficulty>True</Difficulty>
+                <ProblemSentence>True</ProblemSentence>
+                <CharPanel>True</CharPanel>
+                <Rate>True</Rate>
+                <CorrectAnswer>True</CorrectAnswer>
+                <Remarks>True</Remarks>
+            </Format>
+        </Genre>
+        <Genre name="社会">
+            <Format name="連想">
+                <Difficulty>True</Difficulty>
+                <Hint>True</Hint>
+                <CorrectAnswer>True</CorrectAnswer>
+                <Remarks>True</Remarks>
+            </Format>
+        </Genre>
+        <Genre name="文系学問">
+            <Format name="○×">
+                <Difficulty>True</Difficulty>
+                <ProblemSentence>True</ProblemSentence>
+                <Rate>True</Rate>
+                <CorrectAnswer>True</CorrectAnswer>
+                <Remarks>True</Remarks>
+            </Format>
+        </Genre>
+        <Genre name="理系学問">
+            <Format name="タイピング">
+                <Difficulty>True</Difficulty>
+                <ProblemSentence>True</ProblemSentence>
+                <Rate>True</Rate>
+                <CorrectAnswer>True</CorrectAnswer>
+                <Remarks>True</Remarks>
+            </Format>
+            <Format name="キューブ">
+                <Difficulty>True</Difficulty>
+                <ProblemSentence>True</ProblemSentence>
+                <Rate>True</Rate>
+                <CorrectAnswer>True</CorrectAnswer>
+                <Remarks>True</Remarks>
+            </Format>
+            <Format name="エフェクト">
+                <Difficulty>True</Difficulty>
+                <ProblemSentence>True</ProblemSentence>
+                <Rate>True</Rate>
+                <CorrectAnswer>True</CorrectAnswer>
+                <Remarks>True</Remarks>
+            </Format>
+        </Genre>
+    </Template>
+</Setting>

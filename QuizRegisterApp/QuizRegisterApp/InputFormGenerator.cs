@@ -5,115 +5,110 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
-using static QuizSaveApp.Program;
+using Serialization = System.Xml.Serialization;
+using XmlManager.Mapping;
 
 namespace QuizSaveApp
 {
     public class InputFormGenerator
     {
-        #region Generatorメソッド
+        private readonly QuizSetting.Define define_ = null;
+        private readonly QuizSetting.Template template_ = null;
+
+        public InputFormGenerator()
+        {
+            define_ = Program.quizSetting.Define;
+            template_ = Program.quizSetting.Template;
+        }
+
         /// <summary>
         /// テンプレートから入力フォームを生成します
         /// </summary>
         /// <param name="basePanel">入力フォームの生成先パネル</param>
-        /// <param name="tmpl">テンプレート名</param>
-        public void GenerateInputForm(Panel basePanel, string tmpl)
+        /// <param name="genre_name">ジャンル名</param>
+        /// <param name="format_name">出題形式名</param>
+        public void GenerateInputForm(Panel basePanel, string genre_name, string format_name)
         {
             basePanel.Controls.Clear();
-            XElement type = xmlTypes.Where(t => t.Attribute("name").Value == tmpl).First();
-
-            foreach (var viewColumn in type.Elements())
+            var genre = template_.Genres.Find(ge => ge.Name == genre_name);
+            var format = genre.Formats.Find(fo => fo.Name == format_name);
+            
+            foreach(var prop in format.GetType().GetProperties())
             {
+                // Xmlファイルにおける属性のプロパティはスキップする
+                if (prop.CustomAttributes.First().AttributeType.UnderlyingSystemType == typeof(Serialization::XmlAttributeAttribute))  { continue; }
+                // 設定値を判定
+                if (Convert.ToBoolean(prop.GetValue(format)) != true) { continue; }
+                
+                //プロパティ名から入力項目定義を取得
+                var column = define_.Columns.Find(col => col.Key == prop.Name);
+
                 //入力項目毎にパネルを生成
-                var flow_subInputColumns = new FlowLayoutPanel();
-                flow_subInputColumns.FlowDirection = FlowDirection.TopDown;
-                basePanel.Controls.Add(flow_subInputColumns);
-                SetParentWidth(flow_subInputColumns);
-
+                var subPanel = new FlowLayoutPanel { Name = "flowlayoutpanel_" + column.Key };
+                subPanel.FlowDirection = FlowDirection.TopDown;
+                basePanel.Controls.Add(subPanel);
+                SetParentWidth(subPanel);
+                
                 //項目名
-                var label = new Label();
+                var label = new Label { Name = "label_" + column.Key };
                 label.AutoSize = true;
-                label.Text = viewColumn.Name.ToString();
-                flow_subInputColumns.Controls.Add(label);
+                label.Text = column.Title;
+                subPanel.Controls.Add(label);
 
-                //各種入力インプット
-                XElement inputColumn = xmlColumns.Where(c => c.Attribute("name").Value == viewColumn.Name.ToString()).First();
-                XElement input_type = inputColumn.Elements().Where(icd => icd.Name.ToString() == "InputType").First();
-                switch (input_type.Value)
+                //各種入力インプット生成
+                switch (column.InputType)
                 {
                     case "textbox":
-                        var textbox = new TextBox { Name = viewColumn.Name.ToString() };
-                        flow_subInputColumns.Controls.Add(textbox);
+                        var textbox = new TextBox { Name = "textbox_" + column.Key };
+                        subPanel.Controls.Add(textbox);
                         SetParentWidth(textbox);
                         break;
 
+                    case "textarea":
+                        var textarea = new RichTextBox { Name = "textarea_" + column.Key };
+                        subPanel.Controls.Add(textarea);
+                        SetParentWidth(textarea);
+                        break;
+
                     case "charbox10":
-                        var flow_charPanel = new FlowLayoutPanel();
-                        flow_subInputColumns.Controls.Add(flow_charPanel);
+                        var flow_charPanel = new FlowLayoutPanel { Name = "charbox10_" + column.Key };
+                        subPanel.Controls.Add(flow_charPanel);
                         SetParentWidth(flow_charPanel);
 
                         for (var i = 1; i <= 10; i++)
                         {
-                            var charbox = new TextBox();
+                            var charbox = new TextBox { Name = "charbox_" + i};
                             flow_charPanel.Controls.Add(charbox);
                             charbox.Width = 25;
                             charbox.Margin = new Padding(5);
-                            if (i % 5 == 0) { flow_subInputColumns.SetFlowBreak(charbox, true); }
+                            if (i % 5 == 0) { subPanel.SetFlowBreak(charbox, true); }
                         }
 
                         flow_charPanel.AutoSize = true;
                         break;
 
-                    case "textarea":
-                        var textarea = new RichTextBox { Name = viewColumn.Name.ToString() };
-                        flow_subInputColumns.Controls.Add(textarea);
-                        SetParentWidth(textarea);
-                        break;
-
                     case "radio":
-                        IEnumerable<XElement> Groups = inputColumn.Elements("Group");
-
-                        foreach (XElement group in Groups)
+                        foreach (string opt_group in column.Options.Split(','))
                         {
-                            List<string> values = new List<string>();
-                            values = group.Elements("Value").Select(v => v.Value).ToList();
-
-                            var flow_radioGroup = new FlowLayoutPanel { Name = "radio_group" };
-                            flow_subInputColumns.Controls.Add(flow_radioGroup);
+                            var flow_radioGroup = new FlowLayoutPanel { Name = "flowlayoutpanel_opt_group" };
+                            subPanel.Controls.Add(flow_radioGroup);
                             SetParentWidth(flow_radioGroup);
 
-                            foreach (string value in values)
+                            string[] options = opt_group.Split(';');
+                            foreach (string opt in options)
                             {
-                                string[] radio_options = value.Split(',');
-                                foreach (string opt in radio_options)
-                                {
-                                    var radio_button = new RadioButton { Name = "radio_" + opt };
-                                    radio_button.Text = opt;
-                                    radio_button.AutoSize = true;
-                                    flow_radioGroup.Controls.Add(radio_button);
-                                }
-                                Control lastRadio = flow_radioGroup.Controls.Find("radio_" + radio_options.Last(), false).First();
-                                flow_subInputColumns.SetFlowBreak(lastRadio, true);
+                                var radio_button = new RadioButton { Name = "radiobtn_" + opt };
+                                radio_button.Text = opt;
+                                radio_button.AutoSize = true;
+                                flow_radioGroup.Controls.Add(radio_button);
                             }
+                            Control lastRadio = flow_radioGroup.Controls.Find("radiobtn_" + options.Last(), false).First();
+                            subPanel.SetFlowBreak(lastRadio, true);
                             flow_radioGroup.AutoSize = true;
                         }
                         break;
-
-                    case "select":
-                        string[] options = viewColumn.Value.Split(',');
-
-                        var selectbox = new ComboBox { Name = viewColumn.Name.ToString() };
-                        selectbox.DropDownStyle = ComboBoxStyle.DropDownList;
-                        foreach (var opt in options)
-                        {
-                            selectbox.Items.Add(opt);
-                        }
-                        flow_subInputColumns.Controls.Add(selectbox);
-                        SetParentWidth(selectbox);
-                        break;
                 }
-
-                flow_subInputColumns.AutoSize = true;
+                subPanel.AutoSize = true;
             }
         }
 
@@ -125,7 +120,6 @@ namespace QuizSaveApp
         {
             control.Width = control.Parent.Width - control.Margin.Horizontal;
         }
-        #endregion
 
     }
 }

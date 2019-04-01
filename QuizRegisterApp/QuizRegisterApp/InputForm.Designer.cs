@@ -35,7 +35,7 @@
             this.flow_inputColumns = new System.Windows.Forms.FlowLayoutPanel();
             this.Line = new System.Windows.Forms.Label();
             this.btn_Insert = new System.Windows.Forms.Button();
-            this.cmbBox_Templates = new System.Windows.Forms.ComboBox();
+            this.cmbBox_Format = new System.Windows.Forms.ComboBox();
             this.currentNum = new System.Windows.Forms.Label();
             this.slash = new System.Windows.Forms.Label();
             this.TotalNum = new System.Windows.Forms.Label();
@@ -45,6 +45,9 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cmbBox_Genre = new System.Windows.Forms.ComboBox();
+            this.label_genre = new System.Windows.Forms.Label();
+            this.label_format = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel_picture.SuspendLayout();
@@ -122,18 +125,18 @@
             this.btn_Insert.Text = "登録";
             this.btn_Insert.UseVisualStyleBackColor = true;
             // 
-            // cmbBox_Templates
+            // cmbBox_Format
             // 
-            this.cmbBox_Templates.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbBox_Templates.BackColor = System.Drawing.SystemColors.Window;
-            this.cmbBox_Templates.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbBox_Templates.FormattingEnabled = true;
-            this.cmbBox_Templates.Location = new System.Drawing.Point(703, 15);
-            this.cmbBox_Templates.MaxDropDownItems = 99;
-            this.cmbBox_Templates.Name = "cmbBox_Templates";
-            this.cmbBox_Templates.Size = new System.Drawing.Size(213, 23);
-            this.cmbBox_Templates.TabIndex = 6;
-            this.cmbBox_Templates.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectionChangeCommitted);
+            this.cmbBox_Format.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbBox_Format.BackColor = System.Drawing.SystemColors.Window;
+            this.cmbBox_Format.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbBox_Format.FormattingEnabled = true;
+            this.cmbBox_Format.Location = new System.Drawing.Point(766, 15);
+            this.cmbBox_Format.MaxDropDownItems = 99;
+            this.cmbBox_Format.Name = "cmbBox_Format";
+            this.cmbBox_Format.Size = new System.Drawing.Size(150, 23);
+            this.cmbBox_Format.TabIndex = 6;
+            this.cmbBox_Format.SelectedIndexChanged += new System.EventHandler(this.cmbBox_Format_SelectedIndexChanged);
             // 
             // currentNum
             // 
@@ -223,8 +226,11 @@
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.label_format);
+            this.panel1.Controls.Add(this.label_genre);
+            this.panel1.Controls.Add(this.cmbBox_Genre);
             this.panel1.Controls.Add(this.currentNum);
-            this.panel1.Controls.Add(this.cmbBox_Templates);
+            this.panel1.Controls.Add(this.cmbBox_Format);
             this.panel1.Controls.Add(this.TotalNum);
             this.panel1.Controls.Add(this.btn_Insert);
             this.panel1.Controls.Add(this.slash);
@@ -234,6 +240,37 @@
             this.panel1.Padding = new System.Windows.Forms.Padding(5);
             this.panel1.Size = new System.Drawing.Size(1002, 48);
             this.panel1.TabIndex = 11;
+            // 
+            // cmbBox_Genre
+            // 
+            this.cmbBox_Genre.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbBox_Genre.BackColor = System.Drawing.SystemColors.Window;
+            this.cmbBox_Genre.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbBox_Genre.FormattingEnabled = true;
+            this.cmbBox_Genre.Location = new System.Drawing.Point(530, 15);
+            this.cmbBox_Genre.MaxDropDownItems = 99;
+            this.cmbBox_Genre.Name = "cmbBox_Genre";
+            this.cmbBox_Genre.Size = new System.Drawing.Size(150, 23);
+            this.cmbBox_Genre.TabIndex = 10;
+            this.cmbBox_Genre.SelectedIndexChanged += new System.EventHandler(this.cmbBox_Genre_SelectedIndexChanged);
+            // 
+            // label_genre
+            // 
+            this.label_genre.AutoSize = true;
+            this.label_genre.Location = new System.Drawing.Point(464, 18);
+            this.label_genre.Name = "label_genre";
+            this.label_genre.Size = new System.Drawing.Size(60, 15);
+            this.label_genre.TabIndex = 11;
+            this.label_genre.Text = "ジャンル：";
+            // 
+            // label_format
+            // 
+            this.label_format.AutoSize = true;
+            this.label_format.Location = new System.Drawing.Point(686, 18);
+            this.label_format.Name = "label_format";
+            this.label_format.Size = new System.Drawing.Size(75, 15);
+            this.label_format.TabIndex = 12;
+            this.label_format.Text = "出題形式：";
             // 
             // InputForm
             // 
@@ -273,6 +310,9 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
-        public System.Windows.Forms.ComboBox cmbBox_Templates;
+        public System.Windows.Forms.ComboBox cmbBox_Format;
+        public System.Windows.Forms.ComboBox cmbBox_Genre;
+        private System.Windows.Forms.Label label_format;
+        private System.Windows.Forms.Label label_genre;
     }
 }

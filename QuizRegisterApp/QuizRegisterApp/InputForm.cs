@@ -11,32 +11,55 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using static QuizSaveApp.Program;
+using XmlManager.Mapping;
 
 namespace QuizSaveApp
 {
     public partial class InputForm : Form
     {
+        private string genre_name_ = null;
+        private string format_name_ = null;
+
         public InputForm()
         {
             InitializeComponent();
-            SetTemplatesName();
+            SetTemplate();
         }
 
-        private void SetTemplatesName()
+        private void SetTemplate()
         {
-            foreach (var qType in xmlTypes)
+            // ジャンルのセレクトボックス生成
+            cmbBox_Genre.SuspendLayout();
+            foreach (var genre in quizSetting.Template.Genres)
             {
-                cmbBox_Templates.Items.Add(qType.Attribute("name").Value);
+                cmbBox_Genre.Items.Add(genre.Name);
             }
+            cmbBox_Genre.ResumeLayout();
         }
 
-        private void comboBox1_SelectionChangeCommitted(object sender, EventArgs e)
+        private void cmbBox_Genre_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string selectedTmplName = cmbBox_Templates.SelectedItem.ToString();
+            genre_name_ = cmbBox_Genre.SelectedItem.ToString();
+            var genre = quizSetting.Template.Genres.Find(ge => ge.Name == genre_name_);
+            
+            // 出題形式のセレクトボックス生成
+            cmbBox_Format.SuspendLayout();
+            cmbBox_Format.Items.Clear();
+            foreach (var format in genre.Formats)
+            {
+                cmbBox_Format.Items.Add(format.Name);
+            }
+            cmbBox_Format.ResumeLayout();
+        }
 
+        private void cmbBox_Format_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            format_name_ = cmbBox_Format.SelectedItem.ToString();
+
+            // 入力項目を生成
             flow_inputColumns.SuspendLayout();
             var generator = new InputFormGenerator();
-            generator.GenerateInputForm(flow_inputColumns, selectedTmplName);
+            generator.GenerateInputForm(flow_inputColumns, genre_name_, format_name_);
             flow_inputColumns.ResumeLayout();
         }
 
@@ -44,5 +67,6 @@ namespace QuizSaveApp
         {
 
         }
+
     }
 }

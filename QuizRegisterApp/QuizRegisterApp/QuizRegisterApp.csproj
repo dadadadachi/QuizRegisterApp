@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="XmlSetting.cs" />
+    <Compile Include="QuizSettingMapping.cs" />
     <Compile Include="InputFormGenerator.cs" />
     <Compile Include="InputForm.cs">
       <SubType>Form</SubType>

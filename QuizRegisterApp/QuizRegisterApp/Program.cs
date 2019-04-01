@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using XmlManager.Mapping;
+using XmlManager.XmlSetting;
 
 namespace QuizSaveApp
 {
-    static class Program
+    public static class Program
     {
         /// <summary>
         /// アプリケーションのメイン エントリ ポイントです。
@@ -17,19 +18,15 @@ namespace QuizSaveApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            InitializeXmlSetting();
+            InitializeSetting();
             Application.Run(new InputForm());
         }
+        
+        public static QuizSetting.Root quizSetting = null;
 
-        public static XDocument xml = null;
-        public static IEnumerable<XElement> xmlTypes = null;
-        public static IEnumerable<XElement> xmlColumns = null;
-
-        static void InitializeXmlSetting()
+        static void InitializeSetting()
         {
-            xml = XDocument.Load(@"..\..\..\templateSetting.xml");
-            xmlTypes = xml.Root.Elements("Template").Elements("Type");
-            xmlColumns = xml.Root.Elements("Input").Elements("Column");
+            XmlSetting.InitializeXmlSetting();
         }
     }
 }
