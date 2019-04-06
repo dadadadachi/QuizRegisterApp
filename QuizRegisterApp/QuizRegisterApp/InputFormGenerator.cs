@@ -22,7 +22,7 @@ namespace QuizSaveApp
         }
 
         /// <summary>
-        /// テンプレートから入力フォームを生成します
+        /// テンプレートから設定ファイルに定義された入力フォームを生成します
         /// </summary>
         /// <param name="basePanel">入力フォームの生成先パネル</param>
         /// <param name="genre_name">ジャンル名</param>
@@ -113,7 +113,7 @@ namespace QuizSaveApp
         }
 
         /// <summary>
-        /// コントロールに対してその親要素のWidthを設定します
+        /// コントロールに対してその親コントロールのWidthを設定します
         /// </summary>
         /// <param name="control">コントロール</param>
         static void SetParentWidth(Control control)
